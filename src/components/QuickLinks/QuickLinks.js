@@ -25,7 +25,8 @@ const QuickLinks = ({ visible }) => {
         type="button"
         className="quick-link-btn"
         onClick={() =>
-          openWithFallback('musinsa://store', 'https://www.musinsa.com')
+          // ✅ Universal Link → 앱 있으면 앱 실행, 없으면 웹으로 이동
+          openWithFallback('https://musinsa.app.link', 'https://www.musinsa.com')
         }
       >
         <img src="/musinsa.png" alt="무신사" className="quick-link-icon" />
