@@ -18,27 +18,23 @@ function App() {
   const [mode, setMode] = useState('common');
   const [prevMode, setPrevMode] = useState(null);
 
-  // 전신 사진 상태 (미리보기 URL + 파일)
+  // 전신 사진 상태
   const [bodyImage, setBodyImage] = useState(null);
   const [bodyFile, setBodyFile] = useState(null);
 
-  // 결과 이미지
+  // 결과 이미지 (객체 구조로 관리)
   const [resultImage, setResultImage] = useState(null);
   const [fromHistory, setFromHistory] = useState(false);
   const [loading, setLoading] = useState(false);
   const [cancelRequested, setCancelRequested] = useState(false);
 
-  // 추가 옵션 (토글 + 프롬프트 텍스트)
+  // 추가 옵션
   const [extraOptionsOpen, setExtraOptionsOpen] = useState(false);
-  const [promptText, setPromptText] = useState(null); // null 기반
+  const [promptText, setPromptText] = useState(null);
 
-  // 👕 의상 이미지 배열 상태 (최대 5개)
-  const [clothesImages, setClothesImages] = useState([
-    null, null, null, null, null,
-  ]);
-  const [clothesFiles, setClothesFiles] = useState([
-    null, null, null, null, null,
-  ]);
+  // 의상 이미지 배열
+  const [clothesImages, setClothesImages] = useState([null, null, null, null, null]);
+  const [clothesFiles, setClothesFiles] = useState([null, null, null, null, null]);
 
   const handleModeChange = (newMode) => {
     if (!bodyImage && newMode !== 'common' && newMode !== 'history') {
@@ -86,7 +82,7 @@ function App() {
         return (
           <HistorySection
             onSelect={(entry) => {
-              setResultImage(entry.result);
+              setResultImage({ result: entry.result });
               localStorage.setItem('bodyImage', entry.before);
               setFromHistory(true);
               setMode('result');
@@ -96,13 +92,7 @@ function App() {
       default:
         return (
           <>
-            {/* 전신 사진 업로드 */}
-            <CommonUploadSection
-              imageUrl={bodyImage}
-              onUpload={handleBodyUpload}
-            />
-
-            {/* 의상 선택 */}
+            <CommonUploadSection imageUrl={bodyImage} onUpload={handleBodyUpload} />
             <p className="category-label">✨ 의상 선택</p>
             <RecentPreviewSlider
               previews={clothesImages}
@@ -133,11 +123,7 @@ function App() {
           padding: '0 1rem',
         }}
       >
-        <div
-          className={`section-wrapper ${
-            mode === 'history' ? 'history-wrapper' : ''
-          }`}
-        >
+        <div className={`section-wrapper ${mode === 'history' ? 'history-wrapper' : ''}`}>
           {renderSectionContent()}
         </div>
 
@@ -149,10 +135,7 @@ function App() {
               promptText={promptText}
               setPromptText={setPromptText}
             />
-
-            {/* ✅ QuickLinks: 추가 옵션이 닫혀 있을 때만 보임 */}
             <QuickLinks visible={!extraOptionsOpen} />
-
             <ActionButton
               mode={mode}
               bodyImage={bodyImage}
@@ -162,12 +145,11 @@ function App() {
               promptText={promptText}
               setLoading={setLoading}
               setResultImage={setResultImage}
+              setMode={setMode}   // ✅ 추가
               cancelRequested={cancelRequested}
               setCancelRequested={setCancelRequested}
               extraOptionsOpen={extraOptionsOpen}
-              setMode={setMode}
               controllerRef={controllerRef}
-              // ✅ 버튼 활성 조건
               isEnabled={!!bodyFile && clothesFiles.some((f) => f !== null)}
             />
           </div>
@@ -179,22 +161,20 @@ function App() {
   const renderResultPageWithHistorySave = () => {
     const history = JSON.parse(localStorage.getItem('historyImages') || '[]');
     const bodyImageUrl = localStorage.getItem('bodyImage');
-    const newEntry = { result: resultImage, before: bodyImageUrl };
-    const isAlreadyInHistory = history.some(
-      (entry) => entry.result === resultImage
-    );
 
-    if (resultImage && !isAlreadyInHistory) {
-      history.unshift(newEntry);
-      localStorage.setItem(
-        'historyImages',
-        JSON.stringify(history.slice(0, 30))
-      );
+    if (resultImage && resultImage.result) {
+      const newEntry = { result: resultImage.result, before: bodyImageUrl };
+      const isAlreadyInHistory = history.some((entry) => entry.result === resultImage.result);
+
+      if (!isAlreadyInHistory) {
+        history.unshift(newEntry);
+        localStorage.setItem('historyImages', JSON.stringify(history.slice(0, 30)));
+      }
     }
 
     return (
       <ResultPage
-        imageUrl={resultImage}
+        imageUrl={resultImage?.result}
         onBack={() => {
           if (fromHistory) {
             setResultImage(null);

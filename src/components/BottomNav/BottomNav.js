@@ -1,5 +1,5 @@
 import './BottomNav.css';
-import { Camera, History, Settings } from 'lucide-react';
+import { History, Settings } from 'lucide-react';
 import { FaTshirt } from 'react-icons/fa';
 
 const BottomNav = ({ setMode }) => (

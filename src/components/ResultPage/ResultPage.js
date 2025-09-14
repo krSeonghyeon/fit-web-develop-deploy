@@ -7,34 +7,32 @@ import { ImEnlarge2 } from "react-icons/im";
 
 const ResultPage = ({ imageUrl, onBack }) => {
   const [showBefore, setShowBefore] = useState(false);
-  const beforeImageUrl = localStorage.getItem('bodyImage'); // 전신 업로드 이미지
+  const beforeImageUrl = localStorage.getItem('bodyImage'); // ✅ 업로드 당시 저장된 Before 이미지
 
   const handleDownload = async () => {
-  try {
-    const response = await fetch(imageUrl);
-    const blob = await response.blob();
+    try {
+      const response = await fetch(imageUrl);
+      const blob = await response.blob();
+      const blobUrl = URL.createObjectURL(blob);
 
-    const blobUrl = URL.createObjectURL(blob);
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
 
-    // iOS 대응: 새 창 열기 (iOS에서는 공유 시트 또는 저장 옵션 유도)
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+      if (isIOS) {
+        window.open(blobUrl, '_blank');
+      } else {
+        const link = document.createElement('a');
+        link.href = blobUrl;
+        link.download = 'result-image.jpg';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
 
-    if (isIOS) {
-      window.open(blobUrl, '_blank'); // 새 탭에서 열어줌 (이미지 저장 유도됨)
-    } else {
-      const link = document.createElement('a');
-      link.href = blobUrl;
-      link.download = 'result-image.jpg';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+      URL.revokeObjectURL(blobUrl);
+    } catch (error) {
+      console.error('이미지 다운로드 실패:', error);
     }
-
-    URL.revokeObjectURL(blobUrl);
-  } catch (error) {
-    console.error('이미지 다운로드 실패:', error);
-  }
-};
+  };
 
   return (
     <div className="result-page-container">

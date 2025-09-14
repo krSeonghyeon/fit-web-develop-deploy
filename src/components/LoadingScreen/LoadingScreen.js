@@ -19,7 +19,7 @@ const LoadingScreen = ({ bodyImage, onCancel }) => {
           <div className="dot" />
         </div>
 
-        <p className="loading-subtext">예상 소요 시간: 50~60초</p>
+        <p className="loading-subtext">예상 소요 시간: 10 ~ 20초</p>
 
         <button className="cancel-button" onClick={onCancel}>
           취소
