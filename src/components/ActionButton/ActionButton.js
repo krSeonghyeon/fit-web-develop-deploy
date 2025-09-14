@@ -11,11 +11,18 @@ const ActionButton = ({
   setMode,
   controllerRef,
   isEnabled,
+  cancelRequested,
+  setCancelRequested,
 }) => {
   const handleClick = async () => {
     if (!isEnabled) return;
 
     setLoading(true);
+    setCancelRequested(false);
+
+    // ✅ 새로운 AbortController 생성해서 ref에 저장
+    const controller = new AbortController();
+    controllerRef.current = controller;
 
     try {
       const formData = new FormData();
@@ -33,6 +40,7 @@ const ActionButton = ({
       const response = await fetch(`${baseUrl}/virtual-tryon`, {
         method: 'POST',
         body: formData,
+        signal: controller.signal, // ✅ abort 지원
       });
 
       if (!response.ok) {
@@ -42,17 +50,31 @@ const ActionButton = ({
       const data = await response.json();
       console.log("✅ 서버 응답:", data);
 
+      if (cancelRequested) {
+        console.log("❌ 취소됨: 응답 무시");
+        return;
+      }
+
       if (data.result_url) {
         setResultImage({ result: data.result_url });
-        setMode('result'); // ✅ 결과 페이지로 전환
+        setMode('result');
       } else {
         throw new Error("result_url 없음");
       }
     } catch (error) {
-      console.error('❌ API 요청 에러:', error);
-      alert('요청 실패: ' + error.message);
+      if (error.name === 'AbortError') {
+        console.log("❌ 요청이 AbortController에 의해 취소됨");
+      } else if (!cancelRequested) {
+        console.error('❌ API 요청 에러:', error);
+        alert('요청 실패: ' + error.message);
+      }
     } finally {
-      setLoading(false);
+      if (!cancelRequested) {
+        setLoading(false);
+      } else {
+        setLoading(false);
+        setCancelRequested(false);
+      }
     }
   };
 
