@@ -12,6 +12,7 @@ html, body {
 
 .card {
   @apply relative w-96 h-full bg-white rounded-xl flex flex-col;
+  max-height: 900px; 
 }
 
 .scrollable-content {
