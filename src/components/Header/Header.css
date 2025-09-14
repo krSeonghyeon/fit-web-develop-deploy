@@ -1,0 +1,35 @@
+.header {
+  @apply py-4 px-4 flex justify-center bg-white;
+}
+
+.header-inner {
+  @apply flex items-center justify-between w-full;
+}
+
+.header-text {
+  @apply font-bold text-gray-800 text-center truncate min-w-0;
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-back-button {
+  @apply flex items-center justify-center text-gray-700 hover:text-black;
+}
+
+.header-back-placeholder {
+  width: 24px;
+}
+
+.header-back-wrapper {
+  @apply flex items-center justify-center;
+  width: 24px;
+  height: 24px;
+}
+
+.header-back-button {
+  @apply flex items-center justify-center text-gray-700 hover:text-black;
+  width: 24px;
+  height: 24px;
+}

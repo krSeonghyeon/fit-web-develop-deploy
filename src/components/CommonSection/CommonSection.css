@@ -1,0 +1,26 @@
+.common-upload-container {
+  @apply flex flex-col items-center gap-4;
+}
+
+.common-upload-box {
+  @apply w-[240px] h-[240px] bg-gray-50 rounded-xl p-4 shadow-sm flex flex-col items-center justify-center text-center flex-shrink-0;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  background-clip: padding-box;
+}
+
+.common-upload-icon {
+  @apply mb-4 text-rose-500;
+}
+
+.common-upload-label {
+  @apply text-lg font-semibold text-gray-800 flex items-center gap-2;
+}
+
+.common-upload-subtext {
+  @apply text-sm text-gray-500 mt-2;
+}
+
+.common-slider-wrapper {
+  @apply w-full max-w-md mx-auto mb-6;
+}

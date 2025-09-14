@@ -1,0 +1,124 @@
+.loading-photo-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+    margin: 0 auto;
+  }
+  
+  /* 상단 이미지 영역 */
+  .loading-photo-inner {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: 1rem;
+  
+    /* 테두리를 거의 검정색에 가깝게 변경 */
+    border: 2px solid rgba(0, 0, 0, 0.6);
+  
+    background-color: #1a1a1a; /* 거의 검은색 */
+    backdrop-filter: blur(2px);
+  }
+  
+  
+  .loading-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: blur(3px) brightness(0.85);
+  }
+  
+  /* 스캔바 애니메이션 */
+  .scan-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background-color: rgba(255, 255, 0, 0.5);
+    opacity: 0.9;
+    animation: scan-move 2s infinite ease-in-out;
+  }
+  
+  @keyframes scan-move {
+    0% { top: 0%; }
+    50% { top: 100%; }
+    100% { top: 0%; }
+  }
+  
+  /* 아래 텍스트 섹션 */
+  .loading-text-section {
+    background-color: #1F2937; /* 거의 검은색 */
+    color: #f3f4f6; /* 밝은 회색 텍스트 */
+    width: 100%;
+    padding: 0.6rem 0 1.5rem;
+    border-radius: 0 0 1rem 1rem;
+    text-align: center;
+    margin-top: -0.8rem;
+  }
+  
+  .loading-message {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+  }
+  
+  .loading-subtext {
+    font-size: 0.9rem;
+    color: #cbd5e1;
+    margin-top: 0.6rem;
+    margin-bottom: 1rem;
+  }
+  
+  .cancel-button {
+    background-color: transparent;
+    color: #f87171;
+    border: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+  }
+  
+  /* 로딩 점 애니메이션 */
+  .loading-dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 0.2rem;
+  }
+  
+  .loading-dots .dot {
+    width: 8px;
+    height: 8px;
+    background-color: #666;
+    border-radius: 50%;
+    opacity: 0.5;
+    animation: blink 1.4s infinite ease-in-out;
+  }
+  
+  .loading-dots .dot:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  .loading-dots .dot:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+  .loading-dots .dot:nth-child(4) {
+    animation-delay: 0.6s;
+  }
+  
+  @keyframes blink {
+    0%, 80%, 100% {
+      background-color: #666;
+      opacity: 0.5;
+    }
+    40% {
+      background-color: rgba(255, 255, 0, 0.5);
+      opacity: 1;
+    }
+  }
+  

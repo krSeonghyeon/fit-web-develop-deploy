@@ -1,0 +1,35 @@
+.extra-options {
+  @apply mb-4;
+}
+
+.extra-line {
+  @apply flex justify-between items-center py-2;
+}
+
+.extra-icon-text {
+  @apply flex items-center;
+}
+
+.extra-icon {
+  @apply w-6 h-6 mr-2 text-rose-500;
+}
+
+.extra-label {
+  @apply text-sm font-medium text-gray-800;
+}
+
+textarea {
+  resize: none;
+}
+
+/* 🔥 textarea 포커스 시 그라데이션 테두리 */
+textarea:focus {
+  outline: none;
+  border: 2px solid transparent;
+  border-radius: 0.5rem; /* 기존 둥근 모서리 유지 */
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  background-image:
+    linear-gradient(white, white),
+    linear-gradient(135deg, #7f5af0, #2cb2ff); /* 보라→블루 */
+}

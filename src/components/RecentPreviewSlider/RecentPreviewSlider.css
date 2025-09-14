@@ -1,0 +1,86 @@
+.category-section {
+  @apply mb-4;
+}
+
+.category-label {
+  @apply font-bold text-gray-800 mb-2;
+  font-size: 16px;
+}
+
+/* 가로 슬라이더 */
+.recent-scroll-container {
+  @apply flex overflow-x-auto gap-3 pb-1;
+}
+.recent-scroll-container::-webkit-scrollbar {
+  display: none;
+}
+.recent-scroll-container {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* 모든 칸 공통 스타일: 동그라미 */
+.recent-tile {
+  @apply w-[100px] h-[100px] rounded-full bg-white flex-shrink-0
+         flex items-center justify-center;
+  border: 1px solid rgba(0,0,0,0.1);
+  cursor: pointer;
+  position: relative;   /* ✅ X 버튼 기준 */
+  overflow: visible;    /* ✅ 버튼이 잘리지 않도록 */
+  transition: transform 0.08s ease, background-color 0.08s ease;
+}
+.recent-tile:hover {
+  @apply bg-gray-50;
+}
+.recent-tile:active {
+  transform: scale(0.98);
+}
+
+/* + 아이콘 */
+.recent-plus {
+  width: 28px;
+  height: 28px;
+  color: #9ca3af;
+}
+
+/* 업로드된 이미지 */
+.recent-img {
+  @apply w-full h-full object-cover rounded-full;
+}
+
+/* 삭제 버튼 (이미지 우상단 절반 겹치게 + 인식범위 확장) */
+.remove-button {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 20px;  
+  height: 20px;
+  border-radius: 9999px;
+  background-color: #ef4444; /* 빨강 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #fff; /* 흰색 테두리 */
+  cursor: pointer;
+  z-index: 20;
+}
+.remove-button:hover {
+  background-color: #dc2626;
+}
+.remove-button svg {
+  color: white;
+  width: 11px;
+  height: 11px;
+  pointer-events: none;
+}
+
+/* ✅ 인식 범위 확장 (투명 hit-area) */
+.remove-button::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  right: -8px;
+  bottom: -8px;
+  border-radius: 50%;
+}

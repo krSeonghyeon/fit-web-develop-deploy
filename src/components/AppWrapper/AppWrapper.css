@@ -1,0 +1,56 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overscroll-behavior: none; /* 💡 튕김 방지 */
+  background-color: white;
+}
+
+.app-container {
+  @apply flex justify-center items-center w-full h-screen bg-white;
+}
+
+.card {
+  @apply relative w-96 h-full bg-white rounded-xl flex flex-col;
+}
+
+.scrollable-content {
+  @apply flex-1 overflow-y-auto px-4 py-2;
+  display: flex;
+  flex-direction: column;
+  scrollbar-width: none;
+}
+
+.scrollable-content::-webkit-scrollbar {
+  display: none;
+}
+
+.section-wrapper {
+  flex: 1 1 auto;
+  max-height: 58%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.history-wrapper {
+  min-height: calc(100vh - 160px);
+  display: flex;
+  flex-direction: column;
+}
+
+
+.scrollable-content {
+  padding: 0; /* ⭐ 무조건 추가 */
+}
+
+.main-padding {
+  padding: 0; /* ⭐ 이것도 추가 */
+}
+.fitting-page-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 24px; /* 컴포넌트 간 여백 */
+  padding: 20px;
+}

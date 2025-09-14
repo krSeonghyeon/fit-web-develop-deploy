@@ -1,0 +1,24 @@
+.action-button {
+  @apply w-full py-3 rounded-xl text-white font-semibold text-sm tracking-wide mt-6;
+
+  background: linear-gradient(135deg, #7f5af0, #2cb2ff); /* 보라 → 블루 그라데이션 */
+  box-shadow: 0 4px 12px rgba(127, 90, 240, 0.3); /* 자연스러운 그림자 */
+  letter-spacing: 0.5px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.action-button .mr-2 {
+  margin-right: 8px;
+}
+
+/* ✅ 비활성화 시 회색으로 전환 */
+.action-button.disabled {
+  background: #d1d5db;
+  color: #6b7280;
+  box-shadow: none;
+  cursor: not-allowed;
+}
