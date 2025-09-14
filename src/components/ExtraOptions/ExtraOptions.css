@@ -1,17 +1,5 @@
-.extra-options {
-  @apply mb-4;
-}
-
 .extra-line {
   @apply flex justify-between items-center py-2;
-}
-
-.extra-icon-text {
-  @apply flex items-center;
-}
-
-.extra-icon {
-  @apply w-6 h-6 mr-2 text-rose-500;
 }
 
 .extra-label {
@@ -20,16 +8,23 @@
 
 textarea {
   resize: none;
+  height: 84px;       /* ✅ 고정 */
+  min-height: 84px;   /* ✅ 줄어들지 않음 */
+  max-height: 84px;   /* ✅ 커지지 않음 */
+  padding: 0.75rem;   /* ✅ 적당한 내부 여백 */
+  line-height: 1.5;   /* ✅ 가독성 */
+  @apply w-full border border-gray-300 rounded-md text-sm;
+  box-sizing: border-box; /* ✅ padding 포함 */
 }
 
 /* 🔥 textarea 포커스 시 그라데이션 테두리 */
 textarea:focus {
   outline: none;
   border: 2px solid transparent;
-  border-radius: 0.5rem; /* 기존 둥근 모서리 유지 */
+  border-radius: 0.5rem;
   background-origin: border-box;
   background-clip: padding-box, border-box;
   background-image:
     linear-gradient(white, white),
-    linear-gradient(135deg, #7f5af0, #2cb2ff); /* 보라→블루 */
+    linear-gradient(135deg, #7f5af0, #2cb2ff);
 }

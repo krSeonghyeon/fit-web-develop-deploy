@@ -10,6 +10,7 @@ import LoadingScreen from './components/LoadingScreen/LoadingScreen';
 import HistorySection from './components/HistorySection/HistorySection';
 import { AnimatePresence, motion } from 'framer-motion';
 import RecentPreviewSlider from './components/RecentPreviewSlider/RecentPreviewSlider';
+import QuickLinks from './components/QuickLinks/QuickLinks';
 
 function App() {
   const controllerRef = useRef(null);
@@ -148,6 +149,10 @@ function App() {
               promptText={promptText}
               setPromptText={setPromptText}
             />
+
+            {/* ✅ QuickLinks: 추가 옵션이 닫혀 있을 때만 보임 */}
+            <QuickLinks visible={!extraOptionsOpen} />
+
             <ActionButton
               mode={mode}
               bodyImage={bodyImage}

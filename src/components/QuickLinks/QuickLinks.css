@@ -1,0 +1,20 @@
+.quick-links {
+  @apply flex flex-row gap-3;
+  height: 84px;       /* ✅ textarea와 동일한 고정 높이 */
+  min-height: 84px;
+  max-height: 84px;
+  margin-top: 4%;
+}
+
+.quick-link-btn {
+  @apply flex-1 rounded-lg text-white text-center font-semibold text-sm;
+  @apply flex items-center justify-center; /* ✅ 텍스트 중앙 정렬 */
+  height: 100%;  /* ✅ 부모(.quick-links) 높이 채우기 */
+  background: linear-gradient(135deg, #7f5af0, #2cb2ff);
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.quick-link-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(127, 90, 240, 0.3);
+}
