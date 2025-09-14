@@ -1,6 +1,6 @@
 /* QuickLinks.css */
 .quick-links {
-  @apply flex flex-row gap-3 mt-3;
+  @apply flex flex-row gap-3 mt-3.5;
   height: 84px; /* 고정 높이 */
 }
 

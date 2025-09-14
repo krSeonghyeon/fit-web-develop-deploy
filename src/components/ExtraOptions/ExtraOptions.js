@@ -24,7 +24,7 @@ const ExtraOptions = ({ open, setOpen, promptText, setPromptText }) => {
           <textarea
             className="w-full p-2 border border-gray-300 rounded-md text-sm focus:outline-none"
             rows={3}
-            placeholder="추가 프롬프트를 입력하세요"
+            placeholder="ex. 바지 기장을 발목까지 내려줘"
             value={promptText ?? ''}
             onChange={(e) => {
               const value = e.target.value;
