@@ -4,13 +4,11 @@ import './QuickLinks.css';
 const QuickLinks = ({ visible }) => {
   if (!visible) return null;
 
-  // 앱 스킴 + fallback 처리 함수
+  // 앱 스킴 + fallback 처리 함수 (에이블리 전용)
   const openWithFallback = (appUrl, webUrl) => {
     const now = Date.now();
-    // 앱 실행 시도
     window.location.href = appUrl;
 
-    // 일정 시간 안에 앱이 열리지 않으면 웹으로 fallback
     setTimeout(() => {
       if (Date.now() - now < 1500) {
         window.open(webUrl, '_blank');
@@ -20,22 +18,21 @@ const QuickLinks = ({ visible }) => {
 
   return (
     <div className="quick-links">
-      {/* 무신사 */}
-      <button
-        type="button"
+      {/* 무신사 → 그냥 웹 링크 */}
+      <a
+        href="https://www.musinsa.com"
+        target="_blank"
+        rel="noopener noreferrer"
         className="quick-link-btn"
-        onClick={() =>
-          openWithFallback('musinsa://store', 'https://www.musinsa.com')
-        }
       >
         <img src="/musinsa.png" alt="무신사" className="quick-link-icon" />
         <div className="quick-link-text">
           <span>무신사</span>
           <span>바로가기</span>
         </div>
-      </button>
+      </a>
 
-      {/* 에이블리 */}
+      {/* 에이블리 → 앱 시도 후 fallback */}
       <button
         type="button"
         className="quick-link-btn"
