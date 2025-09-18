@@ -7,7 +7,8 @@ import { ImEnlarge2 } from "react-icons/im";
 
 const ResultPage = ({ imageUrl, onBack }) => {
   const [showBefore, setShowBefore] = useState(false);
-  const beforeImageUrl = localStorage.getItem('bodyImage'); // ✅ 업로드 당시 저장된 Before 이미지
+  const beforeImageUrl = localStorage.getItem('beforeImage'); // 서버 응답 person_url
+  const afterImageUrl = localStorage.getItem('afterImage');   // 서버 응답 result_url
 
   const handleDownload = async () => {
     try {
@@ -38,7 +39,7 @@ const ResultPage = ({ imageUrl, onBack }) => {
     <div className="result-page-container">
       <div className="result-image-wrapper">
         <img
-          src={showBefore ? beforeImageUrl : imageUrl}
+          src={showBefore ? beforeImageUrl : afterImageUrl}
           alt={showBefore ? "Before" : "After"}
           className="result-image"
         />

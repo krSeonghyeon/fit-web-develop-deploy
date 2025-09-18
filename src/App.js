@@ -18,21 +18,17 @@ function App() {
   const [mode, setMode] = useState('common');
   const [prevMode, setPrevMode] = useState(null);
 
-  // 전신 사진 상태
   const [bodyImage, setBodyImage] = useState(null);
   const [bodyFile, setBodyFile] = useState(null);
 
-  // 결과 이미지 (객체 구조로 관리)
   const [resultImage, setResultImage] = useState(null);
   const [fromHistory, setFromHistory] = useState(false);
   const [loading, setLoading] = useState(false);
   const [cancelRequested, setCancelRequested] = useState(false);
 
-  // 추가 옵션
   const [extraOptionsOpen, setExtraOptionsOpen] = useState(false);
   const [promptText, setPromptText] = useState(null);
 
-  // 의상 이미지 배열
   const [clothesImages, setClothesImages] = useState([null, null, null, null, null]);
   const [clothesFiles, setClothesFiles] = useState([null, null, null, null, null]);
 
@@ -49,14 +45,11 @@ function App() {
     setFromHistory(false);
   };
 
-  // 전신 사진 업로드
   const handleBodyUpload = (url, file) => {
     setBodyImage(url);
     setBodyFile(file);
-    localStorage.setItem('bodyImage', url);
   };
 
-  // 의상 업로드
   const handleAddClothes = (file, index) => {
     const newImages = [...clothesImages];
     const newFiles = [...clothesFiles];
@@ -66,7 +59,6 @@ function App() {
     setClothesFiles(newFiles);
   };
 
-  // 의상 삭제
   const handleRemoveClothes = (index) => {
     const newImages = [...clothesImages];
     const newFiles = [...clothesFiles];
@@ -82,8 +74,7 @@ function App() {
         return (
           <HistorySection
             onSelect={(entry) => {
-              setResultImage({ result: entry.result });
-              localStorage.setItem('bodyImage', entry.before);
+              setResultImage({ result: entry.result, before: entry.before });
               setFromHistory(true);
               setMode('result');
             }}
@@ -145,7 +136,7 @@ function App() {
               promptText={promptText}
               setLoading={setLoading}
               setResultImage={setResultImage}
-              setMode={setMode}   // ✅ 추가
+              setMode={setMode}
               cancelRequested={cancelRequested}
               setCancelRequested={setCancelRequested}
               extraOptionsOpen={extraOptionsOpen}
@@ -160,11 +151,16 @@ function App() {
 
   const renderResultPageWithHistorySave = () => {
     const history = JSON.parse(localStorage.getItem('historyImages') || '[]');
-    const bodyImageUrl = localStorage.getItem('bodyImage');
+    const beforeImageUrl = resultImage?.before || localStorage.getItem('beforeImage');
 
     if (resultImage && resultImage.result) {
-      const newEntry = { result: resultImage.result, before: bodyImageUrl };
-      const isAlreadyInHistory = history.some((entry) => entry.result === resultImage.result);
+      const newEntry = {
+        result: resultImage.result,
+        before: beforeImageUrl,
+      };
+      const isAlreadyInHistory = history.some(
+        (entry) => entry.result === resultImage.result
+      );
 
       if (!isAlreadyInHistory) {
         history.unshift(newEntry);

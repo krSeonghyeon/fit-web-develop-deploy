@@ -20,7 +20,6 @@ const ActionButton = ({
     setLoading(true);
     setCancelRequested(false);
 
-    // ✅ 새로운 AbortController 생성해서 ref에 저장
     const controller = new AbortController();
     controllerRef.current = controller;
 
@@ -40,7 +39,7 @@ const ActionButton = ({
       const response = await fetch(`${baseUrl}/virtual-tryon`, {
         method: 'POST',
         body: formData,
-        signal: controller.signal, // ✅ abort 지원
+        signal: controller.signal,
       });
 
       if (!response.ok) {
@@ -55,11 +54,19 @@ const ActionButton = ({
         return;
       }
 
-      if (data.result_url) {
-        setResultImage({ result: data.result_url });
+      if (data.result_url && data.person_url) {
+        // ✅ localStorage에 저장
+        localStorage.setItem('beforeImage', data.person_url);
+        localStorage.setItem('afterImage', data.result_url);
+
+        // ✅ state 업데이트
+        setResultImage({
+          before: data.person_url,
+          result: data.result_url,
+        });
         setMode('result');
       } else {
-        throw new Error("result_url 없음");
+        throw new Error("응답에 필요한 URL이 없음");
       }
     } catch (error) {
       if (error.name === 'AbortError') {
